@@ -8,31 +8,40 @@ class App extends Component {
     guests: [
       {
         name: 'Marjolaine',
-        isConfirmed: false
+        isConfirmed: false,
+        isEditing: false
       },
       {
         name: 'Jean-Yves',
-        isConfirmed: true
+        isConfirmed: true,
+        isEditing: false
       },
       {
         name: 'Zack',
-        isConfirmed: false
+        isConfirmed: false,
+        isEditing: true
       }
     ]
   }
-
-  toggleConfirmationAt = indexToChange =>
+  
+  toggleGuestPropertyAt = (property, indexToChange) =>
     this.setState({
       guests: this.state.guests.map((guest, index) => {
         if (index === indexToChange) {
           return {
             ...guest,
-            isConfirmed: !guest.isConfirmed
+            [property]: !guest[property]
           }
         }
         return guest;
       })
     });
+
+  toggleConfirmationAt = index =>
+    this.toggleGuestPropertyAt("isConfirmed", index);
+
+  toggleEditingAt = index =>
+    this.toggleGuestPropertyAt("isEditing", index);
 
   getTotalInvited = () => this.state.guests.length;
   // getAttendingGuest = () =>
@@ -72,7 +81,11 @@ class App extends Component {
               </tr>
             </tbody>
           </table>
-          <GuestList guests={this.state.guests} toggleConfirmationAt={this.toggleConfirmationAt} />
+          <GuestList 
+            guests={this.state.guests} 
+            toggleConfirmationAt={this.toggleConfirmationAt} 
+            toggleEditingAt={this.toggleEditingAt} />
+            
         </div>
       </div>
     );
