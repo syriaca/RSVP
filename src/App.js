@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from './components/Header';
 import GuestList from './components/GuestList';
 import Counter from './components/Counter';
 
@@ -102,22 +103,12 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header>
-          <h1>RSVP</h1>
-          <p>A Treehouse App</p>
-          <form onSubmit={this.newGuestInviteeHandler}>
-              <input 
-                type="text"
-                onChange = {this.handleNameInput}
-                value = {this.state.pendingGuest}
-                placeholder="Invite Someone" />
-              <button 
-                type="submit" 
-                name="submit" 
-                onChange = {this.getNewInviteeName}                
-                value="submit"> Submit </button>
-          </form>
-        </header>
+        <Header 
+          newGuestInviteeHandler={this.newGuestInviteeHandler}
+          handleNameInput={this.handleNameInput}
+          pendingGuest = {this.state.pendingGuest}
+          getNewInviteeName={this.getNewInviteeName}
+          />
         <div className="main">
           <div>
             <h2>Invitees</h2>
@@ -128,12 +119,14 @@ class App extends Component {
                 checked={this.state.isFiltered} /> Hide those who haven't responded
             </label>
           </div>
+
           <Counter 
             totalInvited={totalInvited}
             numberAttending={numberAttending}
             numberUnconfirmed={numberUnconfirmed}
             
             />
+
           <GuestList 
             guests={this.state.guests} 
             toggleConfirmationAt={this.toggleConfirmationAt} 
