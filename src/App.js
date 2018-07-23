@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from './components/Header';
-import GuestList from './components/GuestList';
-import Counter from './components/Counter';
+import MainContent from './components/MainContent';
+
 
 import './App.css';
 
@@ -109,36 +109,21 @@ class App extends Component {
           pendingGuest = {this.state.pendingGuest}
           getNewInviteeName={this.getNewInviteeName}
           />
-        <div className="main">
-          <div>
-            <h2>Invitees</h2>
-            <label>
-              <input 
-                type="checkbox"
-                onChange={this.toggleFilter} 
-                checked={this.state.isFiltered} /> Hide those who haven't responded
-            </label>
-          </div>
 
-          <Counter 
-            totalInvited={totalInvited}
-            numberAttending={numberAttending}
-            numberUnconfirmed={numberUnconfirmed}
-            
-            />
-
-          <GuestList 
-            guests={this.state.guests} 
-            toggleConfirmationAt={this.toggleConfirmationAt} 
-            toggleEditingAt={this.toggleEditingAt} 
-            setNameAt={this.setNameAt} 
-            isFiltered={this.state.isFiltered}
-            newGuestInviteeHandler = {this.newGuestInviteeHandler}
-            removeGuestAt = {this.removeGuestAt}
-            pendingGuest = {this.state.pendingGuest}
-            
-            />
-        </div>
+        <MainContent
+          totalInvited={totalInvited}
+          numberAttending={numberAttending}
+          numberUnconfirmed={numberUnconfirmed}
+          isFiltered= {this.state.isFiltered}
+          guests={this.state.guests}
+          pendingGuest = {this.state.pendingGuest}
+          removeGuestAt = {this.removeGuestAt}
+          toggleConfirmationAt={this.toggleConfirmationAt} 
+          toggleEditingAt={this.toggleEditingAt}
+          setNameAt={this.setNameAt}
+          newGuestInviteeHandler = {this.newGuestInviteeHandler}
+          toggleFilter={this.toggleFilter}
+          />
       </div>
     );
   }
