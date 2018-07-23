@@ -42,6 +42,14 @@ class App extends Component {
   toggleConfirmationAt = index =>
     this.toggleGuestPropertyAt("isConfirmed", index);
 
+  removeGuestAt = index =>
+    this.setState({
+      guests: [
+        ...this.state.guests.slice(0, index),
+        ...this.state.guests.slice(index + 1)
+      ]
+    });
+
   toggleEditingAt = index =>
     this.toggleGuestPropertyAt("isEditing", index);
 
@@ -64,23 +72,21 @@ class App extends Component {
     handleNameInput = e =>
       this.setState({pendingGuest: e.target.value});
 
-    getNewInviteeName = e => {
+    newGuestInviteeHandler = e => {
       e.preventDefault();
       this.setState({
         guests: [
           {
             name: this.state.pendingGuest,
-            isConfirmed: false,
+            isFiltered: false,
             isEditing: false
           },
           ...this.state.guests
         ],
-        pendingGuest:''
-      });
+        pendingGuest: ""
+      })
+
     }
-
-
-
   getTotalInvited = () => this.state.guests.length;
   // getAttendingGuest = () =>
   // getUnconfirmedGuests = () =>
@@ -91,7 +97,7 @@ class App extends Component {
         <header>
           <h1>RSVP</h1>
           <p>A Treehouse App</p>
-          <form onSubmit={this.getNewInviteeName}>
+          <form onSubmit={this.newGuestInviteeHandler}>
               <input 
                 type="text"
                 onChange = {this.handleNameInput}
@@ -136,9 +142,9 @@ class App extends Component {
             toggleEditingAt={this.toggleEditingAt} 
             setNameAt={this.setNameAt} 
             isFiltered={this.state.isFiltered}
-            getNewInviteeName={this.getNewInviteeName}
+            newGuestInviteeHandler = {this.newGuestInviteeHandler}
+            removeGuestAt = {this.removeGuestAt}
             />
-
         </div>
       </div>
     );
