@@ -144,6 +144,7 @@ class App extends Component {
             isFiltered={this.state.isFiltered}
             newGuestInviteeHandler = {this.newGuestInviteeHandler}
             removeGuestAt = {this.removeGuestAt}
+            pendingGuest = {this.state.pendingGuest}
             />
         </div>
       </div>
