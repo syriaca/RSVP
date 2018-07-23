@@ -5,11 +5,8 @@ import './App.css';
 class App extends Component {
 
   state = {
-
     isFiltered: false,
-
     pendingGuest: "",
-
     guests: [
       {
         name: 'Marjolaine',
@@ -67,16 +64,20 @@ class App extends Component {
     handleNameInput = e =>
       this.setState({pendingGuest: e.target.value});
 
-    handleSubmitButton = e => 
-      // e.preventDefault();
-      console.log(e);
-    
-    getNewInviteeName = e => 
+    getNewInviteeName = e => {
+      e.preventDefault();
       this.setState({
-        // guests: this.state.guests = {
-        //   name: e.target.
-        // }
+        guests: [
+          {
+            name: this.state.pendingGuest,
+            isConfirmed: false,
+            isEditing: false
+          },
+          ...this.state.guests
+        ],
+        pendingGuest:''
       });
+    }
 
 
 
@@ -90,18 +91,16 @@ class App extends Component {
         <header>
           <h1>RSVP</h1>
           <p>A Treehouse App</p>
-          <form>
+          <form onSubmit={this.getNewInviteeName}>
               <input 
                 type="text"
                 onChange = {this.handleNameInput}
                 value = {this.state.pendingGuest}
                 placeholder="Invite Someone" />
-
               <button 
                 type="submit" 
                 name="submit" 
-                onChange = {this.getNewInviteeName}
-                onClick={this.handleSubmitButton}
+                onChange = {this.getNewInviteeName}                
                 value="submit"> Submit </button>
           </form>
         </header>
@@ -137,6 +136,7 @@ class App extends Component {
             toggleEditingAt={this.toggleEditingAt} 
             setNameAt={this.setNameAt} 
             isFiltered={this.state.isFiltered}
+            getNewInviteeName={this.getNewInviteeName}
             />
 
         </div>
