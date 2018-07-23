@@ -18,7 +18,7 @@ const GuestList = props =>
                 handleEditing={() => props.toggleEditingAt(index)}
                 setName={text => props.setNameAt(text, index)}
                 removeGuestAt={() => props.removeGuestAt(index)}
-                />
+            />
         )}
     </ul>;
 
